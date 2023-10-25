@@ -1,6 +1,6 @@
-const express = require('express')
-const router = express.Router()
-const blog = require('./blog.routes')
+import express from "express";
+import userRoutes from './user.routes.js'
+const router = express.Router();
 
-router.use(blog)
-module.exports = router
+router.use(userRoutes);
+export default router;

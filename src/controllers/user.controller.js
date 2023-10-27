@@ -12,6 +12,7 @@ export async function register_post(req, res) {
   }
 }
 
+
 // user login controller
 export async function login(req, res) {
   try {
@@ -43,5 +44,5 @@ export async function profile(req, res) {
 
 export function logout(req, res) {
   res.cookie("token", "");
-  return res.json("ok");
+  return res.status(500).json("ok");
 }

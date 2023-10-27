@@ -1,5 +1,5 @@
 import { createUser, verifyUser } from "../services/user.services.js";
-import { jwtTokenSign } from "../utils/tokenGenerator.js";
+import { jwtTokenSign, jwtTokenVerify } from "../utils/tokenGenerator.js";
 
 // user registration controller
 export async function register_post(req, res) {
@@ -22,8 +22,26 @@ export async function login(req, res) {
     const token = jwtTokenSign(user);
 
     // set user login cookies
-    res.cookies("token", token).json("ok");
+    res.cookie("token", token).json({ username: user.username, id: user._id });
   } catch (error) {
     res.status(500).json(error.message);
   }
+}
+
+// user profile controller
+export async function profile(req, res) {
+  try {
+    const { token } = req.cookies;
+    // decode token
+    const decoded = jwtTokenVerify(token);
+
+    res.json(decoded);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+}
+
+export function logout(req, res) {
+  res.cookie("token", "");
+  return res.json("ok");
 }

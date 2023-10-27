@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// function used to connect to database
 export async function connectDb(url) {
   try {
     await mongoose.connect(url, {

@@ -1,4 +1,8 @@
-import { createPost, getAllPost } from "../services/post.services.js";
+import {
+  createPost,
+  getAllPost,
+  getPostBySlug,
+} from "../services/post.services.js";
 
 export async function post(req, res) {
   try {
@@ -15,6 +19,17 @@ export async function allPost(req, res) {
   try {
     const posts = await getAllPost();
     res.status(200).json(posts);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+}
+
+export async function getPost(req, res) {
+  try {
+    const slug = req.params.id;
+    console.log(slug)
+    const post = await getPostBySlug(slug);
+    res.status(200).json(post);
   } catch (error) {
     res.json({ error: error.message });
   }

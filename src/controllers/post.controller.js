@@ -2,6 +2,7 @@ import {
   createPost,
   getAllPost,
   getPostBySlug,
+  updatePostBySlug,
 } from "../services/post.services.js";
 
 export async function post(req, res) {
@@ -27,10 +28,20 @@ export async function allPost(req, res) {
 export async function getPost(req, res) {
   try {
     const slug = req.params.id;
-    console.log(slug)
+    console.log(slug);
     const post = await getPostBySlug(slug);
     res.status(200).json(post);
   } catch (error) {
+    res.json({ error: error.message });
+  }
+}
+
+export async function updatePost(req, res) {
+  try {
+    const updatePost = await updatePostBySlug(req);
+  res.json(updatePost)
+  } catch (error) {
+    console.log(error)
     res.json({ error: error.message });
   }
 }
